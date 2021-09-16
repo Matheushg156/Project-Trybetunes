@@ -21,14 +21,14 @@ code {
   justify-content: center;
 }
 
-.movie-list {
+.album-list {
   display: flex;
   flex-flow: row wrap;
   padding: 48px 30px;
   justify-content: center;
 }
 
-.movie-card {
+.card {
   background-color: white;
   border: 1px solid rgba(0, 0, 0, 0.125);
   border-radius: 3px;
@@ -40,25 +40,39 @@ code {
   width: 200px;
 }
 
-.movie-card-image {
+.card-image {
   width: 200px;
   height: 100px;
 }
 
-.movie-card-body {
+.card-body {
   flex: 1 1 auto;
   padding: 20px;
 }
 
-.movie-card-title {
+.card-title {
   font-size: 14px;
   font-weight: 500;
   margin: 0 0 12px;
 }
 
-.movie-card-subtitle {
+.card-subtitle {
   color: #6c757d;
   font-size: 12px;
   font-weight: 500;
   margin: 0 0 8px;
+}
+
+.albunsMusics {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.listMusics {
+  margin-top: 40px;
+  overflow: hidden; 
+  overflow-y: scroll;
+  height: 550px; 
+  width: 30%;
 }

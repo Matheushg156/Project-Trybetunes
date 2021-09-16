@@ -22,15 +22,15 @@ class AlbunsCard extends React.Component {
         to={ `/album/${collectionId}` }
         data-testid={ `link-to-album-${collectionId}` }
       >
-        <div className="movie-card">
+        <div className="card">
           <img
             alt="Collection Cover"
-            className="movie-card-image"
+            className="card-image"
             src={ artworkUrl100 }
           />
-          <div className="movie-card-body">
-            <p className="movie-card-title">{collectionName}</p>
-            <p className="movie-card-subtitle">{artistName}</p>
+          <div className="card-body">
+            <p className="card-title">{collectionName}</p>
+            <p className="card-subtitle">{artistName}</p>
           </div>
         </div>
       </Link>

@@ -77,7 +77,7 @@ class Search extends React.Component {
         </form>
         <h1>{ showText }</h1>
         { notFindAlbum && <h1>Nenhum álbum foi encontrado</h1> }
-        <div className="movie-list">
+        <div className="album-list">
           { loading && <Loading /> }
           { renderAlbuns && albuns
             .map((album, index) => <AlbunsCard key={ index } listAlbuns={ album } />) }
