@@ -21,6 +21,60 @@ code {
   justify-content: center;
 }
 
+.mainConteiner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logoTrybetubes {
+  width: 200px;
+}
+
+.containerLogin {
+  position: absolute;
+  width: 50%;
+  height: 200px;
+  left: 25%;
+  right: 25%;
+  top: 200px;
+  background: #FFFFFF;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+}
+
+.loginStyle {
+  display: flex;
+  flex-direction: column;
+}
+
+.inputLogin {
+  align-items: flex-start;
+  padding: 12px 16px;
+  position: absolute;
+  width: 70%;
+  height: 12px;
+  left: 10%;
+  top: 50px;
+  background: #FFFFFF;
+  border: 1px solid #E1E5EB;
+  border-radius: 0px;
+}
+
+.buttonLogin {
+  padding: 2px;
+  position: absolute;
+  width: 81%;
+  height: 30px;
+  left: 10%;
+  top: 100px;
+  background: #003BE5;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 2px;
+  color: white;
+}
+
 .album-list {
   display: flex;
   flex-flow: row wrap;
