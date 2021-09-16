@@ -5,6 +5,9 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: whitesmoke;
+  box-sizing: border-box;
+  font-size: 18px;
 }
 
 code {
@@ -16,4 +19,46 @@ code {
   align-items: center;
   display: flex;
   justify-content: center;
+}
+
+.movie-list {
+  display: flex;
+  flex-flow: row wrap;
+  padding: 48px 30px;
+  justify-content: center;
+}
+
+.movie-card {
+  background-color: white;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 3px;
+  display: flex;
+  flex-direction: column;
+  height: 200px;
+  margin: 5px;
+  overflow: hidden;
+  width: 200px;
+}
+
+.movie-card-image {
+  width: 200px;
+  height: 100px;
+}
+
+.movie-card-body {
+  flex: 1 1 auto;
+  padding: 20px;
+}
+
+.movie-card-title {
+  font-size: 14px;
+  font-weight: 500;
+  margin: 0 0 12px;
+}
+
+.movie-card-subtitle {
+  color: #6c757d;
+  font-size: 12px;
+  font-weight: 500;
+  margin: 0 0 8px;
 }
