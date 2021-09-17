@@ -1,36 +1,61 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { addSong, removeSong } from '../services/favoriteSongsAPI';
+import { addSong, removeSong, getFavoriteSongs } from '../services/favoriteSongsAPI';
+import Loading from './Loading';
 
 class MusicCard extends React.Component {
   constructor() {
     super();
 
     this.state = {
-      favorite: false,
+      favorite: [],
+      loading: false,
     };
 
     this.handleClick = this.handleClick.bind(this);
+    this.getList = this.getList.bind(this);
+  }
+
+  componentDidMount() {
+    this.getList();
   }
 
   async handleClick(event, music) {
     if (event.target.checked) {
-      await addSong(music);
-      return this.setState({
-        favorite: true,
+      this.setState({
+        loading: true,
       });
+
+      await addSong(music);
+
+      this.getList();
+    } else {
+      this.setState({
+        loading: true,
+      });
+
+      await removeSong(music);
+      this.getList();
     }
-    await removeSong(music);
-    return this.setState({
-      favorite: false,
+
+    this.setState({
+      loading: false,
+    });
+  }
+
+  async getList() {
+    const favoriteSongs = await getFavoriteSongs();
+    this.setState({
+      favorite: favoriteSongs,
     });
   }
 
   render() {
     const { arrayOfMusics } = this.props;
-    const { favorite } = this.state;
+    const { favorite, loading } = this.state;
     return (
       <div>
+        { loading && <Loading /> }
         { arrayOfMusics.slice(1).map((music) => (
           <section key={ music.trackId }>
             <div>{music.trackName}</div>
@@ -42,14 +67,16 @@ class MusicCard extends React.Component {
               .
             </audio>
             <label
-              htmlFor={ music.trackId }
+              htmlFor={ music.trackName }
               data-testid={ `checkbox-music-${music.trackId}` }
             >
+              Favorita
               <input
-                id={ music.trackId }
+                id={ music.trackName }
                 type="checkbox"
-                checked={ favorite }
-                onChange={ this.handleClick }
+                checked={ favorite
+                  .some(({ trackName }) => trackName === music.trackName) }
+                onChange={ (event) => this.handleClick(event, music) }
               />
             </label>
           </section>
@@ -58,15 +85,6 @@ class MusicCard extends React.Component {
     );
   }
 }
-
-MusicCard.propTypes = {
-  listAlbuns: PropTypes.shape({
-    artistName: PropTypes.string,
-    collectionName: PropTypes.string,
-    collectionId: PropTypes.number,
-    artworkUrl100: PropTypes.string,
-  }).isRequired,
-};
 
 MusicCard.propTypes = {
   arrayOfMusics: PropTypes.arrayOf(PropTypes.object).isRequired,
