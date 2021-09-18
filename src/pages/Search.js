@@ -47,6 +47,7 @@ class Search extends React.Component {
       inputSearch: '',
       renderAlbuns: true,
       showText: `Resultado de álbuns de: ${inputSearch}`,
+      notFindAlbum: false,
     });
   }
 

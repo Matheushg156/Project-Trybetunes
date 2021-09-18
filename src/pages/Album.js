@@ -5,14 +5,10 @@ import getMusics from '../services/musicsAPI';
 import MusicCard from '../components/MusicCard';
 
 class Album extends React.Component {
-  constructor(props) {
-    super(props);
-
-    const { match: { params: { id } } } = this.props;
-
+  constructor() {
+    super();
     this.state = {
       arrayOfMusics: [],
-      id,
     };
   }
 
@@ -21,7 +17,7 @@ class Album extends React.Component {
   }
 
   async fetchMusicsOfAlbum() {
-    const { id } = this.state;
+    const { match: { params: { id } } } = this.props;
 
     const getMusicsById = await getMusics(id);
 
@@ -51,7 +47,9 @@ class Album extends React.Component {
             </div>
           </section>
           <section className="listMusics">
-            <MusicCard arrayOfMusics={ arrayOfMusics } />
+            { arrayOfMusics.slice(1)
+              .map((music) => (
+                <MusicCard key={ music.trackId } music={ music } />))}
           </section>
         </div>
       </div>

@@ -2,17 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-/* {
-  artistId: 12,
-  artistName: "Artist Name",
-  collectionId: 123,
-  collectionName: "Collection Name",
-  collectionPrice: 12.25,
-  artworkUrl100: "https://url-to-image",
-  releaseDate: "2012-03-02T08:00:00Z",
-  trackCount: 8,
-} */
-
 class AlbunsCard extends React.Component {
   render() {
     const { listAlbuns } = this.props;
