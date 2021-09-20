@@ -38,6 +38,8 @@ class Search extends React.Component {
       return this.setState({
         notFindAlbum: true,
         loading: false,
+        albuns: [],
+        showText: '',
       });
     }
 

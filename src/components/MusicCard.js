@@ -4,60 +4,62 @@ import { addSong, removeSong, getFavoriteSongs } from '../services/favoriteSongs
 import Loading from './Loading';
 
 class MusicCard extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
 
     this.state = {
-      favorite: [],
+      check: false,
       loading: false,
     };
 
     this.handleClick = this.handleClick.bind(this);
-    this.getList = this.getList.bind(this);
   }
 
   componentDidMount() {
-    this.getList();
+    this.getListFavorite();
   }
 
-  async handleClick({ target }) {
-    const { music } = this.props;
-
+  async handleClick(event, music) {
     this.setState({
       loading: true,
     });
 
-    if (target.checked) {
+    if (event.target.checked) {
       await addSong(music);
+      this.setState({
+        check: true,
+      });
     } else {
+      await removeSong(music);
       this.setState({
         loading: true,
+        check: false,
       });
-
-      await removeSong(music);
     }
-    this.getList();
 
     this.setState({
       loading: false,
     });
   }
 
-  async getList() {
+  async getListFavorite() {
+    const { music } = this.props;
     const listSongs = await getFavoriteSongs();
-
-    this.setState({ favorite: listSongs });
+    const checkListSongs = listSongs.find((songs) => songs.trackId === music.trackId);
+    if (checkListSongs) {
+      this.setState({
+        check: true,
+      });
+    }
   }
 
   render() {
-    const { music: { trackName, previewUrl, trackId } } = this.props;
-
-    const { favorite, loading } = this.state;
+    const { music } = this.props;
+    const { trackName, previewUrl, trackId } = music;
+    const { check, loading } = this.state;
 
     return (
       <section>
-        { loading && <Loading /> }
-
         <p>{trackName}</p>
 
         <audio data-testid="audio-component" src={ previewUrl } controls>
@@ -66,19 +68,20 @@ class MusicCard extends React.Component {
           <code>audio</code>
           .
         </audio>
-
-        <label
-          htmlFor={ trackId }
-          data-testid={ `checkbox-music-${trackId}` }
-        >
-          Favorita
-          <input
-            id={ trackId }
-            type="checkbox"
-            onChange={ this.handleClick }
-            checked={ favorite.find((listSongs) => listSongs.trackId === trackId) }
-          />
-        </label>
+        { (loading) ? <Loading /> : (
+          <label
+            htmlFor={ trackId }
+            data-testid={ `checkbox-music-${trackId}` }
+          >
+            Favorita
+            <input
+              id={ trackId }
+              type="checkbox"
+              checked={ check }
+              onChange={ (event) => this.handleClick(event, music) }
+            />
+          </label>
+        )}
       </section>
     );
   }

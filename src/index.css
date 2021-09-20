@@ -125,5 +125,46 @@ code {
   overflow: hidden; 
   overflow-y: scroll;
   height: 550px; 
-  width: 30%;
+  width: 35%;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+}
+
+.logoHeader {
+  width: 80px;
+  margin-left: 20px;
+  margin-bottom: 5px;
+}
+
+.containerUser{
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+  height: 20px;
+  width: 120px;
+  border-radius: 50px;
+  background-color: #FFFFFF;
+  padding: 3px;
+}
+
+.avatar {
+  width: 20px;
+}
+
+.userName {
+  margin-left: 5px;
+}
+
+.header1 {
+  display: flex;
+  background-color: rgba(2, 48, 49, 1);
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header2 {
+  display: flex;
 }
