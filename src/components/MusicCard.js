@@ -19,6 +19,10 @@ class MusicCard extends React.Component {
     this.getListFavorite();
   }
 
+  componentDidUpdate() {
+    this.getListFavorite();
+  }
+
   async handleClick(event, music) {
     this.setState({
       loading: true,
@@ -45,7 +49,7 @@ class MusicCard extends React.Component {
   async getListFavorite() {
     const { music } = this.props;
     const listSongs = await getFavoriteSongs();
-    const checkListSongs = listSongs.find((songs) => songs.trackId === music.trackId);
+    const checkListSongs = listSongs.some((songs) => songs.trackId === music.trackId);
     if (checkListSongs) {
       this.setState({
         check: true,
