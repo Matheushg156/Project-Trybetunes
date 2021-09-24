@@ -19,10 +19,6 @@ class Favorites extends React.Component {
     this.getFavoriteSongsList();
   }
 
-  componentDidUpdate() {
-    this.getFavoriteSongsList();
-  }
-
   async getFavoriteSongsList() {
     const listFavoriteSongs = await getFavoriteSongs();
 
