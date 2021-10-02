@@ -44,14 +44,16 @@ class Favorites extends React.Component {
     return (
       <div data-testid="page-favorites">
         <Header />
-        { loading && <Loading /> }
-        { favoriteSongs.map((music) => (
-          <MusicCard
-            key={ music.trackId }
-            music={ music }
-            onChange={ (event) => this.handleClick2(event, music) }
-            checked={ favoriteSongs.some((song) => song.trackId === music.trackId) }
-          />))}
+        <div className="favoritePage">
+          { loading && <Loading /> }
+          { favoriteSongs.map((music) => (
+            <MusicCard
+              key={ music.trackId }
+              music={ music }
+              onChange={ (event) => this.handleClick2(event, music) }
+              checked={ favoriteSongs.some((song) => song.trackId === music.trackId) }
+            />))}
+        </div>
       </div>
     );
   }

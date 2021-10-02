@@ -125,8 +125,25 @@ code {
   margin-top: 40px;
   overflow: hidden; 
   overflow-y: scroll;
-  height: 550px; 
-  width: 35%;
+  height: 500px; 
+  width: 50%;
+}
+
+.musicCardList {
+  display: flex;
+  width: 100%;
+}
+
+.itemCard {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.itemCardName {
+  width: 100%;
+  margin-right: 3px;
 }
 
 .header {
@@ -208,4 +225,15 @@ code {
 .buttonFormSearch {
   background-color: rgba(0, 59, 229, 1);
   color: white;
+}
+
+.favoritePage {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 40px;
 }
