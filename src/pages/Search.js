@@ -14,7 +14,7 @@ class Search extends React.Component {
       loading: false,
       renderAlbuns: false,
       showText: '',
-      /* notFindAlbum: false, */
+      notFindAlbum: false,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -36,10 +36,10 @@ class Search extends React.Component {
 
     if (arrayAlbuns.length === 0) {
       return this.setState({
-        /* notFindAlbum: true, */
+        notFindAlbum: true,
         loading: false,
         albuns: [],
-        showText: 'Nenhum álbum foi encontrado',
+        showText: '',
       });
     }
 
@@ -48,14 +48,14 @@ class Search extends React.Component {
       loading: false,
       inputSearch: '',
       renderAlbuns: true,
-      showText: `Resultado de álbuns de ${inputSearch}:`,
-      /* notFindAlbum: false, */
+      showText: `Resultado de álbuns de: ${inputSearch}`,
+      notFindAlbum: false,
     });
   }
 
   render() {
     const { inputSearch, loading, albuns,
-      renderAlbuns, showText } = this.state;
+      renderAlbuns, showText, notFindAlbum } = this.state;
     const minLength = 2;
     return (
       <div data-testid="page-search">
@@ -81,9 +81,9 @@ class Search extends React.Component {
               Pesquisar
             </button>
           </form>
+          <p>{ showText }</p>
+          { notFindAlbum && <p>Nenhum álbum foi encontrado</p> }
         </div>
-        <p>{ showText }</p>
-        {/* { notFindAlbum && <p>Nenhum álbum foi encontrado</p> } */}
         <div className="album-list">
           { loading && <Loading /> }
           { renderAlbuns && albuns
