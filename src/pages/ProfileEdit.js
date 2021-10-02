@@ -9,19 +9,17 @@ class ProfileEdit extends React.Component {
     super();
 
     this.handleChange = this.handleChange.bind(this);
+    this.getUserInfos = this.getUserInfos.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.updateUserInfo = this.updateUserInfo.bind(this);
-    this.validatButton = this.validatButton.bind(this);
     this.renderForm = this.renderForm.bind(this);
 
     this.state = {
+      image: '',
       name: '',
       email: '',
       description: '',
-      image: '',
       loading: false,
       redirect: false,
-      disabled: true,
     };
   }
 
@@ -34,13 +32,19 @@ class ProfileEdit extends React.Component {
     this.setState({
       [name]: value,
     });
-    this.validatButton();
   }
 
-  handleSubmit(event) {
-    event.preventDefault();
-    this.updateUserInfo();
+  async handleSubmit() {
+    this.setState({ loading: true });
+    const { image, name, email, description } = this.state;
+    await updateUser({
+      image,
+      name,
+      email,
+      description,
+    });
     this.setState({
+      loading: false,
       redirect: true,
     });
   }
@@ -49,48 +53,19 @@ class ProfileEdit extends React.Component {
     this.setState({ loading: true });
     const user = await getUser();
     this.setState({
+      image: user.image,
       name: user.name,
       email: user.email,
       description: user.description,
-      image: user.image,
     });
     this.setState({ loading: false });
-    this.validatButton();
-  }
-
-  async updateUserInfo() {
-    const { name, email, description, image } = this.state;
-    const user = {
-      name,
-      email,
-      description,
-      image,
-    };
-    this.setState({ loading: true });
-    await updateUser(user);
-    this.setState({ loading: false });
-  }
-
-  validatButton() {
-    const { name, email, description, image } = this.state;
-    const user = {
-      name,
-      email,
-      description,
-      image,
-    };
-    const emailRegex = /\S+@\S+\.\S+/;
-    const validEmail = !emailRegex.test(email);
-    const validatAllInfos = Object.values(user).some((value) => value === '');
-    if (validEmail || validatAllInfos) {
-      this.setState({ disabled: true });
-    } else {
-      this.setState({ disabled: false });
-    }
   }
 
   renderForm() {
-    const { name, email, description, image, disabled } = this.state;
+    const { image, name, email, description } = this.state;
+    const validEmail = /\S+@\S+\.\S+/.test(email);
+    const validButton = (validEmail && image !== '' && name !== '' && email !== ''
+    && description !== '');
     return (
       <div>
         <form>
@@ -126,7 +101,7 @@ class ProfileEdit extends React.Component {
           </label>
           <label htmlFor="profileDescription">
             Descrição:
-            <textarea
+            <input
               data-testid="edit-input-description"
               id="profileDescription"
               name="description"
@@ -134,14 +109,13 @@ class ProfileEdit extends React.Component {
               onChange={ this.handleChange }
             />
           </label>
-          <button
-            type="submit"
+          <input
+            type="button"
             data-testid="edit-button-save"
-            disabled={ disabled }
+            disabled={ !validButton }
             onClick={ this.handleSubmit }
-          >
-            Salvar
-          </button>
+            value="Salvar"
+          />
         </form>
       </div>
     );

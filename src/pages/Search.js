@@ -14,7 +14,7 @@ class Search extends React.Component {
       loading: false,
       renderAlbuns: false,
       showText: '',
-      notFindAlbum: false,
+      /* notFindAlbum: false, */
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -36,10 +36,10 @@ class Search extends React.Component {
 
     if (arrayAlbuns.length === 0) {
       return this.setState({
-        notFindAlbum: true,
+        /* notFindAlbum: true, */
         loading: false,
         albuns: [],
-        showText: '',
+        showText: 'Nenhum álbum foi encontrado',
       });
     }
 
@@ -48,38 +48,42 @@ class Search extends React.Component {
       loading: false,
       inputSearch: '',
       renderAlbuns: true,
-      showText: `Resultado de álbuns de: ${inputSearch}`,
-      notFindAlbum: false,
+      showText: `Resultado de álbuns de ${inputSearch}:`,
+      /* notFindAlbum: false, */
     });
   }
 
   render() {
     const { inputSearch, loading, albuns,
-      renderAlbuns, showText, notFindAlbum } = this.state;
+      renderAlbuns, showText } = this.state;
     const minLength = 2;
     return (
       <div data-testid="page-search">
         <Header />
-        <form>
-          <input
-            data-testid="search-artist-input"
-            name="inputSearch"
-            value={ inputSearch }
-            onChange={ this.handleChange }
-            type="text"
-            placeholder="Nome do Artista"
-          />
-          <button
-            data-testid="search-artist-button"
-            type="button"
-            disabled={ inputSearch.length < minLength }
-            onClick={ this.handleClick }
-          >
-            Pesquisar
-          </button>
-        </form>
-        <h1>{ showText }</h1>
-        { notFindAlbum && <h1>Nenhum álbum foi encontrado</h1> }
+        <div className="containerFormSearch">
+          <form className="formSearch">
+            <input
+              className="inputFormSearch"
+              data-testid="search-artist-input"
+              name="inputSearch"
+              value={ inputSearch }
+              onChange={ this.handleChange }
+              type="text"
+              placeholder="Nome do Artista"
+            />
+            <button
+              className="buttonFormSearch"
+              data-testid="search-artist-button"
+              type="button"
+              disabled={ inputSearch.length < minLength }
+              onClick={ this.handleClick }
+            >
+              Pesquisar
+            </button>
+          </form>
+        </div>
+        <p>{ showText }</p>
+        {/* { notFindAlbum && <p>Nenhum álbum foi encontrado</p> } */}
         <div className="album-list">
           { loading && <Loading /> }
           { renderAlbuns && albuns

@@ -48,9 +48,33 @@ class Header extends React.Component {
             data-testid="header-component"
             className="header2"
           >
-            <Link to="/search" data-testid="link-to-search">Pesquisar</Link>
-            <Link to="/favorites" data-testid="link-to-favorites">Favoritas</Link>
-            <Link to="/profile" data-testid="link-to-profile">Perfil</Link>
+            <div className="linkSearch">
+              <Link
+                to="/search"
+                data-testid="link-to-search"
+                className="link"
+              >
+                Pesquisar
+              </Link>
+            </div>
+            <div className="linkFavorites">
+              <Link
+                to="/favorites"
+                data-testid="link-to-favorites"
+                className="link"
+              >
+                Favoritas
+              </Link>
+            </div>
+            <div className="linkProfile">
+              <Link
+                to="/profile"
+                data-testid="link-to-profile"
+                className="link"
+              >
+                Perfil
+              </Link>
+            </div>
           </header>
         </div>
         { loading && <Loading /> }
