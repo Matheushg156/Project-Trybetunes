@@ -27,7 +27,6 @@ class Album extends React.Component {
   }
 
   async handleClick(event, music) {
-    /* const { onChange } = this.props; */
     this.setState({
       loading: true,
     });
@@ -42,7 +41,6 @@ class Album extends React.Component {
       });
     }
     this.getListFavorite();
-    /* onChange(); */
   }
 
   async getListFavorite() {

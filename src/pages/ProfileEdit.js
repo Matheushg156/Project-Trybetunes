@@ -1,5 +1,5 @@
 import React from 'react';
-import { Redirect } from 'react-router';
+import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import Loading from '../components/Loading';
 import { getUser, updateUser } from '../services/userAPI';
@@ -19,7 +19,6 @@ class ProfileEdit extends React.Component {
       email: '',
       description: '',
       loading: false,
-      redirect: false,
     };
   }
 
@@ -35,6 +34,7 @@ class ProfileEdit extends React.Component {
   }
 
   async handleSubmit() {
+    const { history } = this.props;
     this.setState({ loading: true });
     const { image, name, email, description } = this.state;
     await updateUser({
@@ -43,10 +43,7 @@ class ProfileEdit extends React.Component {
       email,
       description,
     });
-    this.setState({
-      loading: false,
-      redirect: true,
-    });
+    history.push('/profile');
   }
 
   async getUserInfos() {
@@ -57,8 +54,8 @@ class ProfileEdit extends React.Component {
       name: user.name,
       email: user.email,
       description: user.description,
+      loading: false,
     });
-    this.setState({ loading: false });
   }
 
   renderForm() {
@@ -93,7 +90,7 @@ class ProfileEdit extends React.Component {
             <input
               data-testid="edit-input-email"
               id="profileEmail"
-              type="email"
+              type="text"
               name="email"
               value={ email }
               onChange={ this.handleChange }
@@ -101,7 +98,7 @@ class ProfileEdit extends React.Component {
           </label>
           <label htmlFor="profileDescription">
             Descrição:
-            <input
+            <textarea
               data-testid="edit-input-description"
               id="profileDescription"
               name="description"
@@ -122,17 +119,22 @@ class ProfileEdit extends React.Component {
   }
 
   render() {
-    const { loading, redirect } = this.state;
+    const { loading } = this.state;
     return (
       <div data-testid="page-profile-edit">
         <Header />
         <div>
           { loading ? <Loading /> : this.renderForm() }
-          { redirect && <Redirect to="/profile" /> }
         </div>
       </div>
     );
   }
 }
+
+ProfileEdit.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+};
 
 export default ProfileEdit;
